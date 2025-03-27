@@ -110,7 +110,8 @@ def coordinates_to_address(latitude, longitude, language='zh-TW'):
     try:
         location = geolocator.reverse((latitude, longitude), exactly_one=True, language=language)
         if location and location.address:
-            return location.address
+            address = location.raw["address"]
+            return ", ".join([address["country"], address["county"], address["town"]])
         else:
             return "無法找到地址"
     except Exception as e:
